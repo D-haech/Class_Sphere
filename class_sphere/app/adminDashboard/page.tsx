@@ -1,8 +1,9 @@
-const AdminDashboard = () => {
+import AdminDashboard from "@/components/adminDashboard";
+const AdminControl = () => {
   
   return (
     <AdminDashboard/>
   )
 }
 
-export default AdminDashboard;
+export default AdminControl;

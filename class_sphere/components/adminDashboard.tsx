@@ -1,4 +1,5 @@
 import React from "react";
+import { Notifications } from "./aded";
 
 
 
@@ -17,12 +18,13 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-50 p-6 md:p-10 font-sans">
       {/* Header */}
       <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center">
-        <div>
+        <div className="flex-1">
           <h1 className="text-3xl font-bold text-blue-700">Admin Dashboard</h1>
           <p className="text-gray-500 text-sm">Manage your school operations efficiently</p>
         </div>
+          <button className="text-blue-700 mr-3 ">Logout</button>    
         <button className="mt-4 md:mt-0 bg-blue-600 text-white px-5 py-2 rounded-xl shadow hover:bg-blue-700 transition">
-          Settings
+          Settings 
         </button>
       </header>
 
@@ -31,7 +33,7 @@ const AdminDashboard = () => {
         <Card title="Total Students" value="523" icon="🎓" />
         <Card title="Total Teachers" value="34" icon="👩‍🏫" />
         <Card title="Attendance Today" value="91%" icon="📊" />
-        <Card title="Pending Reports" value="3" icon="📋" />
+        <Card title="Unread Messages" value="3" icon="📨" />
       </section>
 
       {/* Tabs Section */}
@@ -49,11 +51,14 @@ const AdminDashboard = () => {
             📑 View Reports
           </button>
           <button className="bg-blue-100 text-blue-700 p-4 rounded-xl hover:bg-blue-200 transition">
-            ⚙️ Settings
+            📑 View Fees
           </button>
         </div>
-      </section>
-    </div>
+          </section>
+          <br />
+          <Notifications/>
+      </div>
+      
   );
 };
 
