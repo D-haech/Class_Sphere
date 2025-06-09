@@ -1,5 +1,5 @@
 import React from "react";
-import { Notifications } from "./aded";
+import { Notifications } from "./notification";
 
 
 
@@ -13,13 +13,13 @@ const Card = ({ title, value, icon }: CardProps) => (
   </div>
 );
 
-const AdminDashboard = () => {
+const AdminDashboard = ({name}:user) => {
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-10 font-sans">
       {/* Header */}
       <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-blue-700">Admin Dashboard</h1>
+                  <h1 className="text-3xl font-bold text-blue-700">{name} Admin Dashboard</h1>
           <p className="text-gray-500 text-sm">Manage your school operations efficiently</p>
         </div>
           <button className="text-blue-700 mr-3 ">Logout</button>    

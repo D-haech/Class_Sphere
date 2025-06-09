@@ -1,4 +1,4 @@
-import AdminDashboard2 from "@/components/aded";
+import AdminDashboard2 from "@/components/notification";
 import StudentDashboard from "@/components/studentDashboard";
 
 
