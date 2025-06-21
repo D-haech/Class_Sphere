@@ -1,5 +1,8 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import { Notifications } from "./notification";
+import { useRouter } from "next/navigation";
+import AxiosIns from "./baseURL";
 
 
 
@@ -13,16 +16,51 @@ const Card = ({ title, value, icon }: CardProps) => (
   </div>
 );
 
-const AdminDashboard = ({name}:user) => {
+const AdminDashboard = () => {
+const router = useRouter();
+const [name, setName] = useState<user>({id: "",
+username:"",
+email: "",
+school: "",
+role:""})
+
+  useEffect(() => {
+    async function fetchUser():Promise<user> {
+      //const URL = `http://127.0.0.1:8000/api/get_logged_in_user/`
+      try {
+        const res = await AxiosIns.get(`/get_logged_in_user/`);
+        setName(res.data);
+        return res.data;
+      } catch (err) {
+        throw err;
+      }
+    }
+    fetchUser();
+  }, [])
+  
+  function handleClick() {
+    return AxiosIns.post(`/logout/`, {refresh:localStorage.getItem('refresh_token')})
+      .then((res) => {
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('access_token');
+        console.log("the report is: ",res.data);
+        router.push("/");
+      })
+      .catch((err) => {
+        console.error;
+        throw err
+      })
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-10 font-sans">
       {/* Header */}
       <header className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div className="flex-1">
-                  <h1 className="text-3xl font-bold text-blue-700">{name} Admin Dashboard</h1>
+                  <h1 className="text-3xl font-bold text-blue-700">{name.username} Admin Dashboard</h1>
           <p className="text-gray-500 text-sm">Manage your school operations efficiently</p>
         </div>
-          <button className="text-blue-700 mr-3 ">Logout</button>    
+        <button className="text-blue-700 mr-3 hover:bg-blue-600 hover:text-white px-5 py-2 rounded-[9px]" onClick={handleClick}><a href="#">Logout</a></button>    
         <button className="mt-4 md:mt-0 bg-blue-600 text-white px-5 py-2 rounded-xl shadow hover:bg-blue-700 transition">
           Settings 
         </button>

@@ -1,9 +1,11 @@
 import AdminDashboard from '@/components/adminDashboard'
 import React from 'react'
 
-function page({params}:PageProps) {
+function page() {
+ 
+  
   return (
-    <AdminDashboard name={params.admin} />
+    <AdminDashboard />
   )
 }
 

@@ -5,7 +5,11 @@ interface CardProps {
 }
 
 interface user {
-    name?: string;
+  id: string;
+  username: string;
+  email: string;
+  school: string;
+  role: string;      
     
 }
 
@@ -16,8 +20,22 @@ interface PageProps {
 }
 
 interface schoolName {
-    id: string;
+    id?: string;
     name: string;
-    address: string;
+  address: string;
+  created_on?: string; 
     
+}
+
+interface Token{
+  access: string;
+  refresh: string;
+}
+
+interface Credentials{
+  school: string;
+  username: string;
+  role: string;
+  email: string;
+  password: string ;
 }

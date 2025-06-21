@@ -1,9 +1,27 @@
-import React from 'react';
+import  Axios  from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const StudentDashboard = () => {
+  const [name, setName] = useState<user>({
+    id: "",
+    username: "",
+    email:"",
+    school: "",
+    role: "",
+})
+  useEffect(() => {
+    const URL = `http://127.0.0.1:8000/api/student_info`
+    function getStudent() {
+      Axios.get(URL).then((res) => {
+        setName(res.data)
+      }).catch((err)=>{throw err})
+    }
+    getStudent();
+  }, [])
+  
   return (
     <div className="p-6 bg-gray-50 min-h-screen text-gray-800">
-      <h1 className="text-3xl font-bold text-blue-700 mb-6">Student Dashboard</h1>
+      <h1 className="text-3xl font-bold text-blue-700 mb-6">{name.username} Dashboard</h1>
 
       {/* Timetable */}
       <div className="bg-white p-4 rounded shadow mb-6">

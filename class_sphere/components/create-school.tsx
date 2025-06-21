@@ -3,26 +3,55 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import Create_school from '@/app/create-school/page';
 
 export default function SelectSchoolPage() {
   const [schoolName, setSchoolName] = useState<schoolName[]>([]);
+  const [schoolAdd, setSchoolAdd] = useState<schoolName>({ name: "", address: "" })
   const router = useRouter();
 
-  const handleCreateSchool = () => {
-    router.push('/create-school');
-  };
+
   const URL = `http://127.0.0.1:8000/api/get_school/`
+  const create_school_URL = `http://127.0.0.1:8000/api/create_school/`
+
+
+  function createSchool(): Promise<schoolName> {
+    return Axios.post(create_school_URL, schoolAdd)
+      .then((res) => {
+        alert(`${schoolAdd.name} has been created`)
+        setSchoolAdd({ name: "", address: "" })
+        return res.data
+      })
+      .catch(error => { alert(error | error.messages) })
+
+  }
+
+  const handleCreateSchool = async () => {
+    const result = await createSchool();
+    if (result) {
+      router.push(`/adminDashboard/${result.name}`);
+    }
+  };
+
 
   useEffect(() => {
     //Axios.get(URL).then((res) => { setSchoolName(res.data) })
     const carry = async () => {
-      const response = await Axios.get(URL);
-      const data = await response.data;
-      console.log(data);
-      setSchoolName(data)
+      try {
+        const response = await Axios.get(URL);
+        const data = await response.data;
+        setSchoolName(data)
+        console.log(data);
+        
+      } catch (error) {
+        throw error
+      }
     }
     carry()
   }, [])
+
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 flex items-center justify-center px-10">
@@ -38,8 +67,15 @@ export default function SelectSchoolPage() {
           <input
             type="text"
             // value={schoolName}
-            //onChange={(e) => setSchoolName(e.target.value)}
+            onChange={(e) => setSchoolAdd({ ...schoolAdd, name: e.target.value })}
             placeholder="Search for your school..."
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            type="text"
+            onChange={(e) => setSchoolAdd({ ...schoolAdd, address: e.target.value })}
+            placeholder="Address of School"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
