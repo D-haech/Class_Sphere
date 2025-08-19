@@ -11,7 +11,7 @@ const LoginPage = () => {
   const BASE_URL = `/login/`
 
   const [school, setSchool] = useState<schoolName[]>([])
-  const [response, setResponse] = useState<string | null>()
+  const [response, setResponse] = useState<string>("")
   const [credentials, SetCredentials] = useState<Credentials>({
     school: "",
     username: "",
@@ -60,8 +60,23 @@ const LoginPage = () => {
 
 
         });
-          credentials.role == "school_admin" && router.push(`/adminDashboard/`),
-          credentials.role == "teacher" && router.push(`/adminDashboard/`)
+        switch (credentials.role) {
+          case 'school_admin':
+            router.push(`/adminDashboard/`)
+            break;
+          case 'teacher':
+            router.push(`/teacherDashboard/`)
+            break;
+          case 'student':
+            router.push(`/student/`)
+            break;
+          default:
+            setResponse(`⚠️ Choose your role`)
+            break;
+        }
+        
+          // credentials.role == "school_admin" && router.push(`/adminDashboard/`),
+          // credentials.role == "teacher" && router.push(`/teacherDashboard/`)
 
       })
       .catch((err) => {
@@ -119,7 +134,7 @@ const LoginPage = () => {
             Log In
           </button>
           <br />
-          <p>{response}</p>
+          <p className="text-red-500">{response}</p>
         </form>
 
         <p className="text-sm text-center mt-4 text-gray-500">

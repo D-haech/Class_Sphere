@@ -42,7 +42,7 @@ export default function SelectSchoolPage() {
         const data = await response.data;
         setSchoolName(data)
         console.log(data);
-        
+
       } catch (error) {
         throw error
       }
@@ -64,25 +64,41 @@ export default function SelectSchoolPage() {
             Find your school or create a new one if you're an administrator.
           </p>
 
+
+
+
+          <select className="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option>Create New School</option>
+            {schoolName.map((e) => (
+              <option key={e.id}> {e.name}</option>
+            ))}</select>
+
+
+
+
+
+
+
+
+          <br />
+
+
           <input
             type="text"
             // value={schoolName}
             onChange={(e) => setSchoolAdd({ ...schoolAdd, name: e.target.value })}
-            placeholder="Search for your school..."
+            placeholder="Create new school..."
             className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            />
 
           <input
             type="text"
             onChange={(e) => setSchoolAdd({ ...schoolAdd, address: e.target.value })}
             placeholder="Address of School"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            />
 
-          <div className="text-center text-gray-400 my-2">— or —</div>
-          <ul>{schoolName.map((e) => (
-            <li key={e.id}> {e.name}</li>
-          ))}</ul>
+
           <button
             onClick={handleCreateSchool}
             className="block w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg shadow hover:bg-blue-700 transition"

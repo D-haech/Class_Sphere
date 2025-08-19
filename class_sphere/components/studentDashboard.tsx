@@ -1,4 +1,5 @@
-import  Axios  from 'axios';
+"use client"
+import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const StudentDashboard = () => {
